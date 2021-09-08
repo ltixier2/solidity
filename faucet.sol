@@ -10,6 +10,8 @@ contract faucet {
     // on met la balance du contrat a 0;  
     uint faucet_value = 100000000000000000;
     // definition du montant à envoyer 
+
+    
     
     
     constructor()  {
@@ -19,7 +21,7 @@ contract faucet {
  } 
  
  modifier onlyOnwer{
-      msg.sender == admin; 
+      require(msg.sender == admin); 
      _;
      // modificateur permettant de verifier si l'admin et bien l'utilisateur courrant. 
  }
@@ -36,7 +38,7 @@ contract faucet {
      // fonction pour déposer des ether sur le contrat qui incremente la balance. 
  }
  
- function change_faucet_value(uint _faucet_value) onlyOnwer public{
+ function change_faucet_value(uint _faucet_value)  public onlyOnwer{
      faucet_value = _faucet_value; 
      //fonction qui permet de modifier la valeur d'envoi d'ether pour qui en fera la demande (autorisé a tous)
  }
@@ -48,5 +50,8 @@ contract faucet {
       // fonction qui envoi les ether et decremente la balance du contrat 
      
  }
- 
+ function contractBalance() public view returns(uint) {
+    return address(this).balance;
+}
+
 }
